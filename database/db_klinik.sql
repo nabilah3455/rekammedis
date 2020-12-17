@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2020 at 01:06 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.1
+-- Generation Time: Dec 17, 2020 at 12:09 PM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -51,15 +50,16 @@ CREATE TABLE `data_report` (
   `id` int(11) NOT NULL,
   `id_rekam_medis` int(5) NOT NULL,
   `catatan` text NOT NULL,
-  `catatan_1` text
+  `catatan_1` text DEFAULT NULL,
+  `status` enum('read','unread') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `data_report`
 --
 
-INSERT INTO `data_report` (`id`, `id_rekam_medis`, `catatan`, `catatan_1`) VALUES
-(2, 18, 'obat habis, diganti jadi apa?', 'ssss');
+INSERT INTO `data_report` (`id`, `id_rekam_medis`, `catatan`, `catatan_1`, `status`) VALUES
+(5, 18, 'sdsaasad', 'asasasa', 'unread');
 
 -- --------------------------------------------------------
 
@@ -164,8 +164,8 @@ CREATE TABLE `rekam_medis` (
   `id` int(11) NOT NULL,
   `no_medis` varchar(5) NOT NULL,
   `tensi` varchar(10) DEFAULT NULL,
-  `diagnosa` text,
-  `terapi` text,
+  `diagnosa` text DEFAULT NULL,
+  `terapi` text DEFAULT NULL,
   `dokter` varchar(50) DEFAULT NULL,
   `tanggal` date NOT NULL,
   `status` enum('antrian','selesai','ambil obat') NOT NULL
@@ -180,7 +180,8 @@ INSERT INTO `rekam_medis` (`id`, `no_medis`, `tensi`, `diagnosa`, `terapi`, `dok
 (19, 'ps001', '2/2', 'ooo', 'ooo', NULL, '2020-05-20', 'ambil obat'),
 (20, '1212', '1', '1', '1', 'Ghoniyyatul Nabilah', '2020-05-20', 'selesai'),
 (21, 'ps001', '2', '2', '2', 'Ghoniyyatul Nabilah', '2020-06-02', 'selesai'),
-(22, 'ps001', '5', '5', '5', 'Ghoniyyatul Nabilah', '2020-06-02', 'selesai');
+(22, 'ps001', '5', '5', '5', 'Ghoniyyatul Nabilah', '2020-06-02', 'selesai'),
+(23, '1212', NULL, NULL, NULL, NULL, '2020-12-17', 'antrian');
 
 -- --------------------------------------------------------
 
@@ -205,7 +206,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
 (8, 'ryan eriawan', 'ryaneriawan@gmail.com', 'Penguins1.jpg', '$2y$10$8dhCsWFjTtSO7HnjZIyZuOowufDBhww4.AkEkeEBRvvKomSArzuX.', 1, 1, 1587373631),
-(27, 'Ghoniyyatul Nabilah', 'nabil@gmail.com', 'Koala1.jpg', '$2y$10$2Fgw6b2PWKaaUeZQwPCSMu6YXyAlcVfaPlbT/wdQYBfhb/eGD17nq', 2, 1, 1588746916);
+(27, 'Ghoniyyatul Nabilah', 'nabil@gmail.com', 'Koala1.jpg', '$2y$10$2Fgw6b2PWKaaUeZQwPCSMu6YXyAlcVfaPlbT/wdQYBfhb/eGD17nq', 2, 1, 1588746916),
+(28, 'Ghoniyyatul Nabilah', 'nabilah@gmail.com', 'default.jpg', '$2y$10$YigmzV4FF8d.siEy84WnLufTIIMgu6cZsnKIzM9CznJB2lbnSqhFm', 1, 1, 1608198880);
 
 -- --------------------------------------------------------
 
@@ -286,7 +288,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `data_report`
 --
 ALTER TABLE `data_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `data_rujukan`
@@ -316,13 +318,13 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT for table `rekam_medis`
 --
 ALTER TABLE `rekam_medis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `user_role`
